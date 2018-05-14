@@ -16,6 +16,7 @@ public class TileDisplay extends JPanel{
     private static final int TILE_SIZE = 64;
     private static final int TILES_MARGIN = 16;
     public static final DisplaySize PREFERRED_SIZE = new DisplaySize(340, 400);
+    private static final int WINNING_VALUE = 2048;
 
     public void setMyTiles(Tile[] myTiles) {
         this.myTiles = myTiles;
@@ -65,7 +66,8 @@ public class TileDisplay extends JPanel{
             g.setFont(new Font(FONT_NAME, Font.BOLD, 48));
 
             g.drawString("Game over!", 20, 130);
-            g.drawString("You lose!", 60, 200);
+            String s = getMaxValue() < WINNING_VALUE ? "You lose!" : "You win!";
+            g.drawString(s, 60, 200);
 
             g.setFont(new Font(FONT_NAME, Font.PLAIN, 18));
             g.setColor(new Color(128, 128, 128, 192));
@@ -109,6 +111,19 @@ public class TileDisplay extends JPanel{
 
     private static int offsetCoors(int arg) {
         return arg * (TILES_MARGIN + TILE_SIZE) + TILES_MARGIN;
+    }
+
+    private int getMaxValue() {
+        int max = 0;
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
+                int val = myTiles[x + y * 4].value;
+                if (val > max){
+                    max = val;
+                }
+            }
+        }
+        return max;
     }
 }
 

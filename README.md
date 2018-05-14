@@ -1,1 +1,1 @@
-Simple Java implementation of game 2048
+Simple implementation of 2048 game, written in Java.
